@@ -1,4 +1,5 @@
 FROM balenalib/rpi-raspbian:stretch
+COPY qemu-arm-static /usr/bin
 
 ENV DEBIAN_FRONTEND=noninteractive
 
