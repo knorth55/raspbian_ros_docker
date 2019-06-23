@@ -1,5 +1,11 @@
+FROM ubuntu:latest AS builder
+
+WORKDIR /builder/working/directory
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl tar
+RUN curl -L https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz | tar zxvf - -C . && mv qemu-3.0.0+resin-arm/qemu-arm-static .
+
 FROM balenalib/rpi-raspbian:stretch
-COPY qemu-arm-static /usr/bin
+COPY --from=builder /builder/working/directory/qemu-arm-static /usr/bin
 
 ENV DEBIAN_FRONTEND=noninteractive
 
