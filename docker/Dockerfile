@@ -45,7 +45,7 @@ RUN mkdir -p ~/ros/${ROS_DISTRO}/src && \
     wstool update -j 2
 
 RUN cd ~/ros/${ROS_DISTRO}/src && \
-    rosdep install -u --from-paths . --ignore-src --rosdistro kinetic --os=debian:jessie -r -i -y
+    rosdep install --from-paths . --ignore-src --rosdistro kinetic --os=debian:jessie -r -i -y
 
 RUN cd ~/ros/${ROS_DISTRO}/src && \
     catkin build
