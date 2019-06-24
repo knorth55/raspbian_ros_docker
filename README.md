@@ -6,3 +6,10 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/knorth55/raspbian_ros.svg)](https://hub.docker.com/r/knorth55/raspbian_ros)
 [![Docker Automated](https://img.shields.io/docker/cloud/automated/knorth55/raspbian_ros.svg)](https://hub.docker.com/r/knorth55/raspbian_ros)
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/knorth55/raspbian_ros.svg)](https://hub.docker.com/r/knorth55/raspbian_ros)
+
+## Usage
+
+```
+docker pull knorth55/raspbian_ros:kinetic-latest
+docker run --rm -it --net=host --name <name> --env ROS_IP=<ip_address> --env ROS_MASTER_URI=http://<master_uri>:11311 knorth55/raspbian_ros:kinetic-latest /bin/bash
+```
