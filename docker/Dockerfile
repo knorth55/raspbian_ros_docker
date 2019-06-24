@@ -47,7 +47,7 @@ RUN mkdir -p ~/ros/${ROS_DISTRO}/src && \
 RUN cd ~/ros/${ROS_DISTRO}/src && \
     rosdep install --from-paths . --ignore-src --rosdistro kinetic --os=debian:jessie -r -i -y
 
-RUN cd ~/ros/${ROS_DISTRO}/src && \
+RUN cd ~/ros/${ROS_DISTRO} && \
     catkin build
 
 RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
