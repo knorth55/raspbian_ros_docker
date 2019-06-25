@@ -10,22 +10,24 @@ COPY --from=builder /builder/working/directory/qemu-arm-static /usr/bin
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends dirmngr gnupg2 lsb-release unzip wget
-
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    cmake
+    cmake \
+    dirmngr \
+    gnupg2 \
+    lsb-release \
+    tar \
+    wget
 
 RUN mkdir -p ~/libraries/assimp-3.3.1/build_release && \
     cd ~/libraries/assimp-3.3.1/ && \
-    wget https://github.com/assimp/assimp/archive/v3.3.1.zip
+    wget https://github.com/assimp/assimp/archive/v3.3.1.tar.gz
 
 RUN cd ~/libraries/assimp-3.3.1/ && \
-    unzip v3.3.1.zip && mv assimp-3.3.1 src && \
+    tar xzf v3.3.1.tar.gz && mv assimp-3.3.1 src && \
     cd ~/libraries/assimp-3.3.1/build_release && \
     cmake ../src -DCMAKE_BUILD_TYPE=Release -DASSIMP_BUILD_TESTS=False && \
-    make -j3 && make -j3 install && \
-    rm ~/libraries/assimp-3.3.1/v3.3.1.zip
+    make -j 4 && make -j 4 install && \
+    rm ~/libraries/assimp-3.3.1/v3.3.1.tar.gz
 
 RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
