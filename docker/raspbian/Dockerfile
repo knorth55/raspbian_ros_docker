@@ -2,13 +2,11 @@ FROM knorth55/raspbian_ros:assimp-3.3.1
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get upgrade -y
-
 RUN echo "deb http://packages.ros.org/ros-testing/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
 RUN wget http://packages.ros.org/ros.key -O - | apt-key add -
 
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get install -y --no-install-recommends \
     python-rosdep \
     python-rosinstall-generator \
     python-wstool \
@@ -26,7 +24,6 @@ RUN mkdir -p ~/ros/${ROS_DISTRO}/src && \
 RUN cd ~/ros/${ROS_DISTRO}/src && \
     rosdep install --from-paths . --ignore-src --rosdistro kinetic --os=debian:jessie -r -i -y
 
-RUN cd ~/ros/${ROS_DISTRO} && \
-    catkin build
+RUN cd ~/ros/${ROS_DISTRO} && catkin build -j 4
 
 RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
