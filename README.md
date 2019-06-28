@@ -28,6 +28,8 @@ docker run --rm -it --net=host --name <name> --env ROS_IP=<ip_address> --env ROS
 
 ## Docker Installation on Raspberry Pi
 
+### Installation
+
 ```bash
 curl -sSL https://get.docker.com | sh
 sudo addgroup docker <username>
