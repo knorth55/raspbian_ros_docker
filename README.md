@@ -6,9 +6,36 @@
 [![Docker Automated](https://img.shields.io/docker/cloud/automated/knorth55/raspbian_ros.svg)](https://hub.docker.com/r/knorth55/raspbian_ros)
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/knorth55/raspbian_ros.svg)](https://hub.docker.com/r/knorth55/raspbian_ros)
 
+## Docker images
+
+Docker images are distributed in [Dockerhub knorth55/raspbian_ros](https://hub.docker.com/r/knorth55/raspbian_ros)
+
+- `knorth55/raspbian_ros:kinetic-latest` Raspbian stretch + Kinetic
+- `knorth55/raspbian_ros:melodic-latest` Raspbian stretch + Melodic
+
 ## Usage
 
-```
+```bash
 docker pull knorth55/raspbian_ros:kinetic-latest
 docker run --rm -it --net=host --name <name> --env ROS_IP=<ip_address> --env ROS_MASTER_URI=http://<master_uri>:11311 knorth55/raspbian_ros:kinetic-latest /bin/bash
 ```
+
+## Docker Installation
+
+```bash
+curl -sSL https://get.docker.com | sh
+sudo addgroup docker <username>
+sudo systemctl start docker
+```
+
+### Installation error
+
+**docker.service: Failed with result 'core-dump'**
+
+Downgrade docker debian package.
+
+`sudo apt-get install docker-ce=18.06.1~ce~3-0~raspbian`
+
+## Test Environment
+
+Raspberry Pi Zero HW + Docker
