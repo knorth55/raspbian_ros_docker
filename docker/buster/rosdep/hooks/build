@@ -2,8 +2,8 @@
 
 set -eu
 
-[[ ${DOCKER_TAG} =~ ([a-z]+)-([0-9a-z.]+)$ ]]
-ROS_DISTRO=${BASH_REMATCH[1]}
+[[ ${DOCKER_TAG} =~ ([a-z]+)-([a-z]+)-([a-z]+)-([0-9a-z.]+)$ ]]
+ROS_DISTRO=${BASH_REMATCH[2]}
 
 docker build --build-arg ROS_DISTRO=${ROS_DISTRO} \
              -t ${IMAGE_NAME} .
