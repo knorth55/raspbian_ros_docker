@@ -48,6 +48,6 @@ RUN mkdir -p ~/ros/${ROS_DISTRO}/src && \
 
 ARG ROS_DISTRO
 RUN cd ~/ros/${ROS_DISTRO}/src && \
-    rosdep update && \
+    rosdep update && apt-get update && \
     rosdep install --from-paths . --ignore-src --rosdistro ${ROS_DISTRO} --os=debian:buster -r -i -y && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
