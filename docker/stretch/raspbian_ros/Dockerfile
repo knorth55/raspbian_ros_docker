@@ -1,5 +1,5 @@
 ARG ROS_DISTRO
-FROM knorth55/raspbian_ros:rosdep-${ROS_DISTRO}-latest
+FROM knorth55/raspbian_ros:rosdep-${ROS_DISTRO}-stretch-latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
