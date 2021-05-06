@@ -30,6 +30,8 @@ RUN echo "deb http://packages.ros.org/ros-testing/ubuntu $(lsb_release -sc) main
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
     python-rosdep \
     python-rosinstall-generator \
     python-wstool \
