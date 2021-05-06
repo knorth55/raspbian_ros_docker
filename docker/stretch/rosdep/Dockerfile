@@ -27,5 +27,6 @@ RUN mkdir -p ~/ros/${ROS_DISTRO}/src && \
 ARG ROS_DISTRO
 RUN cd ~/ros/${ROS_DISTRO}/src && \
     rosdep update && apt-get update && \
-    rosdep install -r -y -i --from-paths . --rosdistro ${ROS_DISTRO} --os=debian:stretch && \
+    # https://answers.ros.org/question/348170/pycryptodome/
+    rosdep install -r -y -i --from-paths . --rosdistro ${ROS_DISTRO} --os=debian:stretch --skip-keys="python-pycryptodome" && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
