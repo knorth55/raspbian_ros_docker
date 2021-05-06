@@ -29,7 +29,9 @@ RUN echo "deb http://packages.ros.org/ros-testing/ubuntu $(lsb_release -sc) main
     apt-get update && apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-cacert \
     ca-certificates \
     curl \
     python-rosdep \
@@ -37,6 +39,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python-wstool \
     python-rosinstall \
     python-catkin-tools && \
+    # https://github.com/ros/rosdistro/issues/9721
+    c_rehash /etc/ssl/certs && \
+    update-ca-certificates && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 RUN rosdep init && rosdep update
