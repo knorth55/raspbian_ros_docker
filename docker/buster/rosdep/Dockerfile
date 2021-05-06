@@ -51,6 +51,7 @@ RUN apt-get update && \
       python-wstool; \
     else \
       apt-get install -y --no-install-recommends \
+      python-empy \
       python-wstool \
       python-setuptools \
       python3-rosdep \
