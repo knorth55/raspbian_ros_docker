@@ -57,7 +57,8 @@ RUN apt-get update && \
       python3-rosinstall \
       python3-rosinstall-generator && \
       pip3 install catkin-tools; \
-    fi
+    fi && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 RUN rosdep init && rosdep update
 
