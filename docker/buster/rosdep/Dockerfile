@@ -52,6 +52,7 @@ RUN apt-get update && \
     else \
       apt-get install -y --no-install-recommends \
       python-wstool \
+      python-setuptools \
       python3-rosdep \
       python3-rosinstall \
       python3-rosinstall-generator && \
