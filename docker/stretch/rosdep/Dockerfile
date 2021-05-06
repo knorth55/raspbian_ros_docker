@@ -27,5 +27,5 @@ RUN mkdir -p ~/ros/${ROS_DISTRO}/src && \
 ARG ROS_DISTRO
 RUN cd ~/ros/${ROS_DISTRO}/src && \
     rosdep update && apt-get update && \
-    rosdep install --from-paths . --ignore-src --rosdistro ${ROS_DISTRO} --os=debian:stretch -r -i -y && \
+    rosdep install -r -y -i --from-paths . --rosdistro ${ROS_DISTRO} --os=debian:stretch && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
