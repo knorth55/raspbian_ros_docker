@@ -34,8 +34,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-cacert \
     ca-certificates \
     curl \
-    python-pip \
-    python3-pip && \
+    python-pip && \
     # https://github.com/ros/rosdistro/issues/9721
     c_rehash /etc/ssl/certs && \
     update-ca-certificates && \
@@ -56,7 +55,7 @@ RUN apt-get update && \
       python3-rosdep \
       python3-rosinstall \
       python3-rosinstall-generator && \
-      pip3 install catkin-tools; \
+      pip install catkin-tools; \
     fi && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
