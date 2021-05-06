@@ -16,14 +16,15 @@ Raspbian + ROS docker image for Raspberry Pi
 
 Docker images are distributed in [Dockerhub knorth55/raspbian_ros](https://hub.docker.com/r/knorth55/raspbian_ros)
 
-- `knorth55/raspbian_ros:kinetic-latest` Raspbian stretch + Kinetic
-- `knorth55/raspbian_ros:melodic-latest` Raspbian stretch + Melodic
+- `knorth55/raspbian_ros:melodic-buster-latest` Raspbian buster + Melodic
+- `knorth55/raspbian_ros:melodic-stretch-latest` Raspbian stretch + Melodic
+- `knorth55/raspbian_ros:kinetic-stretch-latest` Raspbian stretch + Kinetic
 
 ## Usage
 
 ```bash
-docker pull knorth55/raspbian_ros:kinetic-latest
-docker run --rm -it --net=host --name <name> --env ROS_IP=<ip_address> --env ROS_MASTER_URI=http://<master_uri>:11311 knorth55/raspbian_ros:kinetic-latest /bin/bash
+docker pull knorth55/raspbian_ros:melodic-buster-latest
+docker run --rm -it --net=host --name <name> --env ROS_IP=<ip_address> --env ROS_MASTER_URI=http://<master_uri>:11311 knorth55/raspbian_ros:melodic-buster-latest /bin/bash
 ```
 
 ## Docker Installation on Raspberry Pi
@@ -36,15 +37,6 @@ sudo addgroup docker <username>
 sudo systemctl start docker
 ```
 
-### Installation error
-
-**docker.service: Failed with result 'core-dump'**
-
-Downgrade docker debian package.
-
-`sudo apt-get install docker-ce=18.06.1~ce~3-0~raspbian`
-
-
 ## Docker image build on your computer 
 
 ### Dependency installation
@@ -53,24 +45,42 @@ Downgrade docker debian package.
 
 ### Build images
 
-**ROS Kinetic**
+#### Raspbian buster + ROS Melodic
 ```
 git clone https://github.com/knorth55/raspbian_ros_docker.git
 cd raspbian_ros_docker
-docker build ./docker/assimp -t knorth55/raspbian_ros:assimp-3.3.1
-docker build ./docker/rosdep -t knorth55/raspbian_ros:rosdep-kinetic-latest --build-arg ROS_DISTRO=kinetic
-docker build ./docker/raspbian_ros -t knorth55/raspbian_ros:kinetic-latest --build-arg ROS_DISTRO=kinetic
+docker build ./docker/buster/rosdep -t knorth55/raspbian_ros:rosdep-melodic-buster-latest --build-arg ROS_DISTRO=melodic
+docker build ./docker/buster/raspbian_ros -t knorth55/raspbian_ros:melodic-buster-latest --build-arg ROS_DISTRO=melodic
 ```
 
-**ROS Melodic**
+#### Raspbian stretch + ROS Melodic
 ```
 git clone https://github.com/knorth55/raspbian_ros_docker.git
 cd raspbian_ros_docker
-docker build ./docker/assimp -t knorth55/raspbian_ros:assimp-3.3.1
-docker build ./docker/rosdep -t knorth55/raspbian_ros:rosdep-melodic-latest --build-arg ROS_DISTRO=melodic
-docker build ./docker/raspbian_ros -t knorth55/raspbian_ros:melodic-latest --build-arg ROS_DISTRO=melodic
+docker build ./docker/stretch/assimp -t knorth55/raspbian_ros:assimp-3.3.1
+docker build ./docker/stretch/rosdep -t knorth55/raspbian_ros:rosdep-melodic-stretch-latest --build-arg ROS_DISTRO=melodic
+docker build ./docker/stretch/raspbian_ros -t knorth55/raspbian_ros:melodic-stretch-latest --build-arg ROS_DISTRO=melodic
+```
+
+#### Raspbian stretch + ROS Kinetic
+```
+git clone https://github.com/knorth55/raspbian_ros_docker.git
+cd raspbian_ros_docker
+docker build ./docker/stretch/assimp -t knorth55/raspbian_ros:assimp-3.3.1
+docker build ./docker/stretch/rosdep -t knorth55/raspbian_ros:rosdep-kinetic-stretch-latest --build-arg ROS_DISTRO=kinetic
+docker build ./docker/stretch/raspbian_ros -t knorth55/raspbian_ros:kinetic-stretch-latest --build-arg ROS_DISTRO=kinetic
 ```
 
 ## Test Environment
 
 Raspberry Pi Zero HW + Docker
+
+## FAQ
+
+### Installation error
+
+**docker.service: Failed with result 'core-dump'**
+
+Downgrade docker debian package.
+
+`sudo apt-get install docker-ce=18.06.1~ce~3-0~raspbian`
