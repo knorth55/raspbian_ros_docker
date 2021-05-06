@@ -34,15 +34,30 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-cacert \
     ca-certificates \
     curl \
-    python-rosdep \
-    python-rosinstall-generator \
-    python-wstool \
-    python-rosinstall \
-    python-catkin-tools && \
+    python-pip \
+    python3-pip && \
     # https://github.com/ros/rosdistro/issues/9721
     c_rehash /etc/ssl/certs && \
     update-ca-certificates && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+ARG ROS_DISTRO
+RUN apt-get update && \
+    if [ ${ROS_DISTRO} = "melodic" ]; then \
+      apt-get install -y --no-install-recommends \
+      python-catkin-tools \
+      python-rosdep \
+      python-rosinstall \
+      python-rosinstall-generator \
+      python-wstool; \
+    else \
+      apt-get install -y --no-install-recommends \
+      python-wstool \
+      python3-rosdep \
+      python3-rosinstall \
+      python3-rosinstall-generator && \
+      pip3 install catkin-tools; \
+    fi
 
 RUN rosdep init && rosdep update
 
