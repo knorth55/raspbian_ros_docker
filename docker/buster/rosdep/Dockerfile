@@ -31,13 +31,25 @@ RUN echo "deb http://packages.ros.org/ros-testing/ubuntu $(lsb_release -sc) main
 
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    apt-transport-https \
     ca-cacert \
     ca-certificates \
     curl \
-    python-pip && \
+    gnupg \
+    python-pip \
+    software-properties-common \
+    wget && \
     # https://github.com/ros/rosdistro/issues/9721
     c_rehash /etc/ssl/certs && \
     update-ca-certificates && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+# https://gitlab.kitware.com/cmake/cmake/-/issues/20568
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
+    apt-get update && apt-get install -y --no-install-recommends \
+    cmake=3.19.2-0kitware1ubuntu20.04.1 \
+    cmake-data=3.19.2-0kitware1ubuntu20.04.1 && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 ARG ROS_DISTRO
